@@ -1,5 +1,6 @@
 package com.example.CodGenerate.dao.entity;
 
+import com.example.CodGenerate.dao.type.OtpStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -16,8 +17,9 @@ public class OtpCodeEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
-  private String userId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", nullable = false)
+  private UserEntity user;
 
   @Column(nullable = false)
   private String operationId;
@@ -32,7 +34,8 @@ public class OtpCodeEntity {
   private Integer attemptsLeft;
 
   @Column(nullable = false)
-  private String status; // ACTIVE, EXPIRED, USED
+  @Enumerated(EnumType.STRING)
+  private OtpStatus status; // ACTIVE, EXPIRED, USED
 
   @Column(nullable = false)
   private LocalDateTime createdAt;
@@ -41,25 +44,24 @@ public class OtpCodeEntity {
 
   private String confirmedByIp;
 
-  // Конструкторы
   public OtpCodeEntity() {}
 
-  public OtpCodeEntity(String userId, String operationId, String code,
+  public OtpCodeEntity(UserEntity user, String operationId, String code,
                        LocalDateTime expiresAt, Integer maxAttempts) {
-    this.userId = userId;
+    this.user = user;
     this.operationId = operationId;
     this.code = code;
     this.expiresAt = expiresAt;
     this.attemptsLeft = maxAttempts;
-    this.status = "PENDING";
+    this.status = OtpStatus.ACTIVE;
     this.createdAt = LocalDateTime.now();
   }
 
   public Long getId() { return id; }
   public void setId(Long id) { this.id = id; }
 
-  public String getUserId() { return userId; }
-  public void setUserId(String userId) { this.userId = userId; }
+  public UserEntity getUserId() { return user; }
+  public void setUser(UserEntity user) { this.user = user; }
 
   public String getOperationId() { return operationId; }
   public void setOperationId(String operationId) { this.operationId = operationId; }
@@ -73,8 +75,8 @@ public class OtpCodeEntity {
   public Integer getAttemptsLeft() { return attemptsLeft; }
   public void setAttemptsLeft(Integer attemptsLeft) { this.attemptsLeft = attemptsLeft; }
 
-  public String getStatus() { return status; }
-  public void setStatus(String status) { this.status = status; }
+  public OtpStatus getStatus() { return status; }
+  public void setStatus(OtpStatus status) { this.status = status; }
 
   public LocalDateTime getCreatedAt() { return createdAt; }
   public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

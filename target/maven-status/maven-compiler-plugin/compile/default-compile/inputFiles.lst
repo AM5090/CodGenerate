@@ -1,0 +1,14 @@
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\api\controllers\UserController.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\api\dto\LoginRequest.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\api\dto\RegisterRequest.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\api\dto\UserResponse.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\CodGenerateApplication.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\config\SecurityConfig.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\dao\entity\OtpCodeEntity.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\dao\entity\OtpConfigEntity.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\dao\entity\UserEntity.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\dao\repository\OtpCodeRepository.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\dao\repository\OtpConfigRepository.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\dao\repository\UserRepository.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\dao\type\OtpStatus.java
+C:\Users\PC USER\Desktop\pet\CodGenerate\src\main\java\com\example\CodGenerate\service\UserService.java

@@ -15,10 +15,10 @@ public class UserEntity {
   private String login;
 
   @Column(nullable = false)
-  private String passwordHash;  // Хешированный пароль
+  private String passwordHash;
 
   @Column(nullable = false)
-  private String role;  // USER, ADMIN, MODERATOR и т.д.
+  private String role;  // USER, ADMIN
 
   @Column(name = "created_at")
   private LocalDateTime createdAt;
@@ -26,7 +26,6 @@ public class UserEntity {
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
-  // Конструкторы
   public UserEntity() {}
 
   public UserEntity(String login, String passwordHash, String role) {
@@ -37,7 +36,6 @@ public class UserEntity {
     this.updatedAt = LocalDateTime.now();
   }
 
-  // Геттеры и сеттеры
   public Long getId() { return id; }
   public void setId(Long id) { this.id = id; }
 
@@ -56,7 +54,6 @@ public class UserEntity {
   public LocalDateTime getUpdatedAt() { return updatedAt; }
   public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 
-  // Хелпер для обновления времени
   @PreUpdate
   protected void onUpdate() {
     updatedAt = LocalDateTime.now();
