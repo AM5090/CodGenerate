@@ -6,6 +6,8 @@ import com.example.CodGenerate.service.UserService;
 import com.example.CodGenerate.service.JwtService;
 import com.example.CodGenerate.service.RefreshTokenService;
 import com.example.CodGenerate.service.CustomUserDetailsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+
+  private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
   @Autowired
   private UserService userService;
@@ -38,6 +42,8 @@ public class UserController {
 
   @PostMapping("/register")
   public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    log.info("Received registration request for login: {}", request.getLogin());
+
     try {
       UserEntity user = userService.register(
               request.getLogin(),
@@ -52,9 +58,11 @@ public class UserController {
               user.getCreatedAt().toString()
       );
 
+      log.info("User registered successfully: {}", request.getLogin());
       return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
     } catch (RuntimeException e) {
+      log.warn("Registration failed for {}: {}", request.getLogin(), e.getMessage());
       Map<String, String> error = new HashMap<>();
       error.put("error", e.getMessage());
       return ResponseEntity.badRequest().body(error);
@@ -63,6 +71,8 @@ public class UserController {
 
   @PostMapping("/login")
   public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    log.info("Login attempt for user: {}", request.getLogin());
+
     try {
       authenticationManager.authenticate(
               new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword())
@@ -82,9 +92,11 @@ public class UserController {
               new UserResponse(user.getId(), user.getLogin(), user.getRole(), user.getCreatedAt().toString())
       );
 
+      log.info("User logged in successfully: {}", request.getLogin());
       return ResponseEntity.ok(response);
 
     } catch (Exception e) {
+      log.warn("Login failed for {}: {}", request.getLogin(), e.getMessage());
       Map<String, String> error = new HashMap<>();
       error.put("error", "Invalid login or password");
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);

@@ -8,16 +8,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class TelegramChannel implements OtpDeliveryChannel {
 
-  private static final Logger logger = LoggerFactory.getLogger(TelegramChannel.class);
+  private static final Logger log = LoggerFactory.getLogger(TelegramChannel.class);
 
   @Override
   public boolean send(OtpCodeEntity otpCode, String chatId) {
-    logger.info("[Telegram] Отправка кода {} в чат {}", otpCode.getCode(), chatId);
+    log.info("[Telegram] Отправка кода {} в чат {}", otpCode.getCode(), chatId);
+    log.debug("OTP код: {}, истекает через: {}", otpCode.getCode(), otpCode.getExpiresAt());
+
     System.out.println("=== TELEGRAM ===");
     System.out.println("Chat ID: " + chatId);
     System.out.println("Код: " + otpCode.getCode());
     System.out.println("Действителен до: " + otpCode.getExpiresAt());
     System.out.println("================");
+
+    log.info("OTP успешно отправлен в телеграмм на: {}", chatId);
     return true;
   }
 
