@@ -27,4 +27,14 @@ public interface OtpConfigRepository extends JpaRepository<OtpConfigEntity, Long
           "WHERE c.id = :id")
   int updateConfig(Long id, Integer codeLength, Integer expiryMinutes,
                    Integer maxAttempts, Boolean isActive);
+
+  @Modifying
+  @Transactional
+  @Query("UPDATE OtpConfigEntity c SET " +
+          "c.codeLength = :codeLength, " +
+          "c.codeExpiryMinutes = :codeExpiryMinutes, " +
+          "c.maxAttempts = :maxAttempts, " +
+          "c.updatedAt = CURRENT_TIMESTAMP " +
+          "WHERE c.id = 1")
+  int updateConfigParams(Integer codeLength, Integer codeExpiryMinutes, Integer maxAttempts);
 }

@@ -101,4 +101,25 @@ public class OtpService {
     }
     return code.toString();
   }
+
+  public OtpConfigEntity getCurrentConfig() {
+    return otpConfigRepository.getSingleConfig();
+  }
+
+  @Transactional
+  public OtpConfigEntity updateConfig(Integer codeLength, Integer codeExpiryMinutes, Integer maxAttempts) {
+    OtpConfigEntity config = otpConfigRepository.getSingleConfig();
+
+    if (codeLength != null && codeLength >= 4 && codeLength <= 10) {
+      config.setCodeLength(codeLength);
+    }
+    if (codeExpiryMinutes != null && codeExpiryMinutes >= 1 && codeExpiryMinutes <= 30) {
+      config.setCodeExpiryMinutes(codeExpiryMinutes);
+    }
+    if (maxAttempts != null && maxAttempts >= 1 && maxAttempts <= 10) {
+      config.setMaxAttempts(maxAttempts);
+    }
+
+    return otpConfigRepository.save(config);
+  }
 }
