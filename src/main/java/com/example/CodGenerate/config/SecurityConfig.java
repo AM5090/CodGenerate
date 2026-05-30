@@ -33,6 +33,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/users/register", "/api/users/login", "/api/auth/refresh").permitAll()
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/api/otp/**").authenticated()  // OTP требует авторизации
                     .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
